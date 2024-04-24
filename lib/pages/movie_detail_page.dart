@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:midterms/db/movies.dart';
 import 'package:midterms/model/movie.dart';
+import 'package:midterms/pages/edit_movie_page.dart';
 // import 'package:todoapp/page/edit_note_page.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -38,35 +39,55 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
+      backgroundColor: Colors.blue,
       actions: [editButton(), deleteButton()],
     ),
-    body: isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : Padding(
-      padding: const EdgeInsets.all(12),
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        children: [
-          Text(
-            movie.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+    body:
+    Container(
+      color: Colors.blueAccent,
+      child: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+        padding:const EdgeInsets.all(12)
+        ,
+        child:
+        ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          children: [
+            Text(
+              movie.title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            DateFormat.yMMMd().format(movie.releaseTime),
-            style: const TextStyle(color: Colors.white38, fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            movie.description,
-            style:
-            const TextStyle(color: Colors.white70, fontSize: 18),
-          )
-        ],
+            Text(
+              movie.director,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Image(
+                image: NetworkImage(movie.posterUrl
+                )
+            ),
+            const SizedBox(height: 8,),
+            Text(
+              DateFormat.yMMMd().format(movie.releaseTime),
+              style: const TextStyle(color: Colors.white38, fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              movie.description,
+              style:
+              const TextStyle(color: Colors.white70, fontSize: 18),
+            )
+          ],
+        ),
       ),
     ),
   );
@@ -76,9 +97,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       onPressed: () async {
         if (isLoading) return;
 
-        // await Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => AddEditNotePage(movie: movie),
-        // ));
+        await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => AddEditMoviePage(movie: movie),
+        ));
 
         refreshMovie();
       });

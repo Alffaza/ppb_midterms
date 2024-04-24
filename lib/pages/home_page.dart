@@ -96,16 +96,7 @@ class _HomeState extends State<HomePage> {
                       )
                 )
             ),
-            TextButton(
-                onPressed: () {},
-                child: const Text(
-                    "Edit Movie",
-                    style:
-                    TextStyle(
-                      fontSize: 18,
-                    )
-                )
-            ),
+
           ],
         ),
       )
